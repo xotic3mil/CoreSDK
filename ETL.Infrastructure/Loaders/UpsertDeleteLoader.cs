@@ -29,10 +29,20 @@ public sealed class UpsertDeleteLoader<T>(
         }
 
         var sourceKeys = list.Select(keySelector).ToList();
-        var deleted = await connection.ExecuteAsync(
-            $"DELETE FROM {table} WHERE {keyColumn} NOT IN @Keys",
-            new { Keys = sourceKeys },
-            transaction: transaction);
+        int deleted;
+        if (sourceKeys.Count == 0)
+        {
+            deleted = await connection.ExecuteAsync(
+                $"DELETE FROM {table}",
+                transaction: transaction);
+        }
+        else
+        {
+            deleted = await connection.ExecuteAsync(
+                $"DELETE FROM {table} WHERE {keyColumn} NOT IN @Keys",
+                new { Keys = sourceKeys },
+                transaction: transaction);
+        }
 
         logger?.LogInformation("UpsertDelete complete — {Total} upserted, {Deleted} deleted from {Table}", total, deleted, table);
         return total;

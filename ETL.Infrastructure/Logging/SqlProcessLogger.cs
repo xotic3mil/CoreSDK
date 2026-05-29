@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using Dapper;
 using ETL.Core.Interfaces;
 using ETL.Core.Models;
@@ -12,7 +13,7 @@ public sealed class SqlProcessLogger : IProcessLogger
 {
     private readonly string _connectionString;
     private readonly ILogger<SqlProcessLogger>? _logger;
-    private readonly Dictionary<string, (Guid Id, DateTime StartedAt)> _runs = new();
+    private readonly ConcurrentDictionary<string, (Guid Id, DateTime StartedAt)> _runs = new();
 
     public SqlProcessLogger(string connectionString, ILogger<SqlProcessLogger>? logger = null)
     {
@@ -37,7 +38,7 @@ public sealed class SqlProcessLogger : IProcessLogger
 
     public async Task LogCompleteAsync(string processName, int recordsProcessed, CancellationToken cancellationToken = default)
     {
-        if (!_runs.TryGetValue(processName, out var run)) return;
+        if (!_runs.TryRemove(processName, out var run)) return;
 
         await using var conn = new SqliteConnection(_connectionString);
         await conn.OpenAsync(cancellationToken);
@@ -51,7 +52,7 @@ public sealed class SqlProcessLogger : IProcessLogger
 
     public async Task LogErrorAsync(string processName, Exception ex, CancellationToken cancellationToken = default)
     {
-        if (!_runs.TryGetValue(processName, out var run)) return;
+        if (!_runs.TryRemove(processName, out var run)) return;
 
         await using var conn = new SqliteConnection(_connectionString);
         await conn.OpenAsync(cancellationToken);

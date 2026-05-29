@@ -4,7 +4,7 @@ using ETL.Core.Interfaces;
 using ETL.Core.Models;
 using Microsoft.Data.Sqlite;
 
-namespace ETL.Infrastructure.Sources;
+namespace ETL.Infrastructure.SourceConfig;
 
 public sealed class SqlSourceConfigStore(
     string connectionString,

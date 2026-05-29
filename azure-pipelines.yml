@@ -1,0 +1,36 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  major: '1'
+  minor: '0'
+  version: '$(major).$(minor).$(Build.BuildId)'
+
+steps:
+  - task: UseDotNet@2
+    displayName: Use .NET 10
+    inputs:
+      version: '10.x'
+
+  - task: NuGetAuthenticate@1
+    displayName: Authenticate with Azure Artifacts
+
+  - script: dotnet build CoreSDK.sln -c Release /p:Version=$(version) /p:PackageVersion=$(version)
+    displayName: Build
+
+  - script: dotnet pack CoreSDK.sln -c Release --no-build --output $(Build.ArtifactStagingDirectory) /p:Version=$(version) /p:PackageVersion=$(version)
+    displayName: Pack
+
+  - task: DotNetCoreCLI@2
+    displayName: Push to Utv feed
+    inputs:
+      command: push
+      packagesToPushOrRestore: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+      nuGetFeedType: internal
+      publishVstsFeed: 'Utv/Utv'
+      arguments: '--skip-duplicate'
