@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "pN/3Tq1WJXs=",
+  "success": true,
+  "projectFilePath": "C:\\ETL\\src\\ETL.Core\\ETL.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\embe002\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.7\\microsoft.extensions.dependencyinjection.abstractions.10.0.7.nupkg.sha512",
+    "C:\\Users\\embe002\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.7\\microsoft.extensions.logging.abstractions.10.0.7.nupkg.sha512"
+  ],
+  "logs": []
+}
