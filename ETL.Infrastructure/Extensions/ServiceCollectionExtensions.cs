@@ -14,7 +14,9 @@ namespace ETL.Infrastructure.Extensions;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Registers all ETL engine services backed by SQLite.
+    /// Registers core ETL engine services: UnitOfWorkFactory, ProcessRunner, ProcessLogger,
+    /// WatermarkStore, DeadLetterStore, AuditLog, and BulkLoaderFactory.
+    /// ISourceConfigStore is not registered — use the overload that accepts encrypt/decrypt delegates.
     /// </summary>
     public static IServiceCollection AddEtlInfrastructure(
         this IServiceCollection services,

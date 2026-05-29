@@ -29,7 +29,9 @@ internal static class SqlMapper<T>
     {
         var type      = typeof(T);
         var tableAttr = type.GetCustomAttribute<TableAttribute>();
-        var tableName = tableAttr?.Name ?? ToSnakeCase(type.Name);
+        var tableName = tableAttr is not null
+            ? (tableAttr.Schema is not null ? $"{tableAttr.Schema}.{tableAttr.Name}" : tableAttr.Name)
+            : ToSnakeCase(type.Name);
 
         var props = type
             .GetProperties(BindingFlags.Public | BindingFlags.Instance)
@@ -59,9 +61,11 @@ internal static class SqlMapper<T>
 
         if (keyProp is not null)
         {
-            var nonKey  = props.Where(p => !p.IsKey).ToArray();
-            var updates = string.Join(", ", nonKey.Select(p => $"{p.Column} = EXCLUDED.{p.Column}"));
-            upsertSql   = $"INSERT INTO {tableName} ({cols}) VALUES ({parms}) ON CONFLICT ({keyColumn}) DO UPDATE SET {updates}";
+            var nonKey    = props.Where(p => !p.IsKey).ToArray();
+            var conflictAction = nonKey.Length > 0
+                ? $"DO UPDATE SET {string.Join(", ", nonKey.Select(p => $"{p.Column} = EXCLUDED.{p.Column}"))}"
+                : "DO NOTHING";
+            upsertSql = $"INSERT INTO {tableName} ({cols}) VALUES ({parms}) ON CONFLICT ({keyColumn}) {conflictAction}";
 
             var propInfo = keyProp.Property;
             keySelector  = t => propInfo.GetValue(t)!;
