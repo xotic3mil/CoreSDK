@@ -2,132 +2,35 @@ trigger:
   branches:
     include:
       - main
-  tags:
-    include:
-      - 'v*'
-
-pr:
-  branches:
-    include:
-      - main
-
-variables:
-  buildConfiguration: Release
-  # Set AZURE_ARTIFACTS_FEED_URL in pipeline variables, e.g.:
-  # https://pkgs.dev.azure.com/<org>/_packaging/<feed>/nuget/v3/index.json
-  dotnetVersion: '10.x'
 
 pool:
   vmImage: ubuntu-latest
 
-stages:
+variables:
+  major: '1'
+  minor: '0'
+  version: '$(major).$(minor).$(Build.BuildId)'
 
-  - stage: Build
-    displayName: Build & Test
-    jobs:
-      - job: Build
-        steps:
-          - task: UseDotNet@2
-            displayName: Use .NET $(dotnetVersion)
-            inputs:
-              version: $(dotnetVersion)
+steps:
+  - task: UseDotNet@2
+    displayName: Use .NET 10
+    inputs:
+      version: '10.x'
 
-          - task: DotNetCoreCLI@2
-            displayName: Restore
-            inputs:
-              command: restore
-              projects: 'CoreSDK.sln'
+  - task: NuGetAuthenticate@1
+    displayName: Authenticate with Azure Artifacts
 
-          - task: DotNetCoreCLI@2
-            displayName: Build
-            inputs:
-              command: build
-              projects: 'CoreSDK.sln'
-              arguments: '--configuration $(buildConfiguration) --no-restore'
+  - script: dotnet build CoreSDK.sln -c Release /p:Version=$(version)
+    displayName: Build
 
-          # No test project yet — add here when tests exist:
-          # - task: DotNetCoreCLI@2
-          #   displayName: Test
-          #   inputs:
-          #     command: test
-          #     projects: '**/*.Tests.csproj'
-          #     arguments: '--configuration $(buildConfiguration) --no-build'
+  - script: dotnet pack CoreSDK.sln -c Release --no-build --output $(Build.ArtifactStagingDirectory) /p:Version=$(version)
+    displayName: Pack
 
-  - stage: Pack
-    displayName: Pack NuGet
-    dependsOn: Build
-    condition: succeeded()
-    jobs:
-      - job: Pack
-        steps:
-          - task: UseDotNet@2
-            displayName: Use .NET $(dotnetVersion)
-            inputs:
-              version: $(dotnetVersion)
-
-          - bash: |
-              # Derive version: use git tag (v1.2.3 → 1.2.3), else BUILD_BUILDNUMBER
-              if [[ "$(Build.SourceBranch)" == refs/tags/v* ]]; then
-                TAG=$(Build.SourceBranchName)
-                VERSION="${TAG#v}"
-              else
-                VERSION="0.0.0-ci.$(Build.BuildNumber)"
-              fi
-              echo "##vso[task.setvariable variable=PackageVersion]$VERSION"
-              echo "Packing version: $VERSION"
-            displayName: Resolve package version
-
-          - task: DotNetCoreCLI@2
-            displayName: Pack ETL.Core
-            inputs:
-              command: pack
-              packagesToPack: 'ETL.Core/ETL.Core.csproj'
-              configuration: $(buildConfiguration)
-              arguments: '/p:PackageVersion=$(PackageVersion)'
-              outputDir: '$(Build.ArtifactStagingDirectory)/packages'
-              includesymbols: true
-
-          - task: DotNetCoreCLI@2
-            displayName: Pack ETL.Infrastructure
-            inputs:
-              command: pack
-              packagesToPack: 'ETL.Infrastructure/ETL.Infrastructure.csproj'
-              configuration: $(buildConfiguration)
-              arguments: '/p:PackageVersion=$(PackageVersion)'
-              outputDir: '$(Build.ArtifactStagingDirectory)/packages'
-              includesymbols: true
-
-          - publish: '$(Build.ArtifactStagingDirectory)/packages'
-            artifact: packages
-            displayName: Publish package artifacts
-
-  - stage: Push
-    displayName: Push to Azure Artifacts
-    dependsOn: Pack
-    # Only push on main branch or version tags
-    condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/tags/v')))
-    jobs:
-      - deployment: Push
-        environment: nuget-feed
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-                - task: UseDotNet@2
-                  displayName: Use .NET $(dotnetVersion)
-                  inputs:
-                    version: $(dotnetVersion)
-
-                - download: current
-                  artifact: packages
-
-                - task: NuGetAuthenticate@1
-                  displayName: Authenticate with Azure Artifacts
-
-                - task: DotNetCoreCLI@2
-                  displayName: Push to Azure Artifacts
-                  inputs:
-                    command: push
-                    packagesToPush: '$(Pipeline.Workspace)/packages/*.nupkg'
-                    nuGetFeedType: internal
-                    publishVstsFeed: '$(AZURE_ARTIFACTS_FEED_NAME)'
+  - task: DotNetCoreCLI@2
+    displayName: Push to Utv feed
+    inputs:
+      command: push
+      packagesToPushOrRestore: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+      nuGetFeedType: internal
+      publishVstsFeed: 'Utv/Utv'
+      arguments: '--skip-duplicate'
