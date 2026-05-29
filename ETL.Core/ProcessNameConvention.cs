@@ -3,7 +3,7 @@ namespace ETL.Core;
 public static class ProcessNameConvention
 {
     // Derives "Group/JobName" from the type's namespace and class name.
-    // ETL.Processes.Gemensam.DummyDataProcess → "Gemensam/DummyData"
+    // e.g. MyApp.Processes.Sales.InvoiceProcess → "Sales/Invoice"
     public static string Derive(Type processType)
     {
         var namespaceParts = processType.Namespace?.Split('.') ?? [];
