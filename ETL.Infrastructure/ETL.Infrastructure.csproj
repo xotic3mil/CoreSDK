@@ -1,4 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Kalmar.ETL.Infrastructure</PackageId>
+    <Description>SQLite-backed infrastructure implementations for the Kalmar ETL SDK — extractors, loaders, logging, watermarking, and more.</Description>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.72" />
     <PackageReference Include="DbUp-SQLite" Version="6.0.4" />
@@ -7,7 +13,9 @@
     <PackageReference Include="CsvHelper" Version="33.1.0" />
     <PackageReference Include="ClosedXML" Version="0.105.0" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\ETL.Core\ETL.Core.csproj" />
   </ItemGroup>
+
 </Project>
