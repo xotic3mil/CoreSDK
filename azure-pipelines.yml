@@ -20,10 +20,10 @@ steps:
   - task: NuGetAuthenticate@1
     displayName: Authenticate with Azure Artifacts
 
-  - script: dotnet build CoreSDK.sln -c Release /p:Version=$(version)
+  - script: dotnet build CoreSDK.sln -c Release /p:Version=$(version) /p:PackageVersion=$(version)
     displayName: Build
 
-  - script: dotnet pack CoreSDK.sln -c Release --no-build --output $(Build.ArtifactStagingDirectory) /p:Version=$(version)
+  - script: dotnet pack CoreSDK.sln -c Release --no-build --output $(Build.ArtifactStagingDirectory) /p:Version=$(version) /p:PackageVersion=$(version)
     displayName: Pack
 
   - task: DotNetCoreCLI@2
