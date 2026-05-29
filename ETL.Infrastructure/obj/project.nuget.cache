@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/DagsCuroW4=",
+  "dgSpecHash": "1kdp3fD2tcU=",
   "success": true,
-  "projectFilePath": "C:\\ETL\\src\\ETL.Infrastructure\\ETL.Infrastructure.csproj",
+  "projectFilePath": "C:\\CoreSDK\\ETL.Infrastructure\\ETL.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\embe002\\.nuget\\packages\\closedxml\\0.105.0\\closedxml.0.105.0.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\closedxml.parser\\2.0.0\\closedxml.parser.2.0.0.nupkg.sha512",
@@ -13,10 +13,13 @@
     "C:\\Users\\embe002\\.nuget\\packages\\documentformat.openxml\\3.1.1\\documentformat.openxml.3.1.1.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\documentformat.openxml.framework\\3.1.1\\documentformat.openxml.framework.3.1.1.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\excelnumberformat\\1.1.0\\excelnumberformat.1.1.0.nupkg.sha512",
+    "C:\\Users\\embe002\\.nuget\\packages\\microsoft.build.tasks.git\\8.0.0\\microsoft.build.tasks.git.8.0.0.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\microsoft.data.sqlite\\9.0.4\\microsoft.data.sqlite.9.0.4.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\microsoft.data.sqlite.core\\9.0.10\\microsoft.data.sqlite.core.9.0.10.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.7\\microsoft.extensions.dependencyinjection.abstractions.10.0.7.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.7\\microsoft.extensions.logging.abstractions.10.0.7.nupkg.sha512",
+    "C:\\Users\\embe002\\.nuget\\packages\\microsoft.sourcelink.common\\8.0.0\\microsoft.sourcelink.common.8.0.0.nupkg.sha512",
+    "C:\\Users\\embe002\\.nuget\\packages\\microsoft.sourcelink.github\\8.0.0\\microsoft.sourcelink.github.8.0.0.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\polly\\8.6.6\\polly.8.6.6.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\polly.core\\8.6.6\\polly.core.8.6.6.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\rbush.signed\\4.0.0\\rbush.signed.4.0.0.nupkg.sha512",
@@ -25,8 +28,7 @@
     "C:\\Users\\embe002\\.nuget\\packages\\sqlitepclraw.core\\2.1.10\\sqlitepclraw.core.2.1.10.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.10\\sqlitepclraw.lib.e_sqlite3.2.1.10.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\2.1.10\\sqlitepclraw.provider.e_sqlite3.2.1.10.nupkg.sha512",
-    "C:\\Users\\embe002\\.nuget\\packages\\system.io.packaging\\8.0.1\\system.io.packaging.8.0.1.nupkg.sha512",
-    "C:\\Users\\embe002\\.nuget\\packages\\etl.core\\1.0.0\\etl.core.1.0.0.nupkg.sha512"
+    "C:\\Users\\embe002\\.nuget\\packages\\system.io.packaging\\8.0.1\\system.io.packaging.8.0.1.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "pN/3Tq1WJXs=",
+  "dgSpecHash": "qRMcNJaSvGA=",
   "success": true,
-  "projectFilePath": "C:\\ETL\\src\\ETL.Core\\ETL.Core.csproj",
+  "projectFilePath": "C:\\CoreSDK\\ETL.Core\\ETL.Core.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\embe002\\.nuget\\packages\\microsoft.build.tasks.git\\8.0.0\\microsoft.build.tasks.git.8.0.0.nupkg.sha512",
     "C:\\Users\\embe002\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.7\\microsoft.extensions.dependencyinjection.abstractions.10.0.7.nupkg.sha512",
-    "C:\\Users\\embe002\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.7\\microsoft.extensions.logging.abstractions.10.0.7.nupkg.sha512"
+    "C:\\Users\\embe002\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.7\\microsoft.extensions.logging.abstractions.10.0.7.nupkg.sha512",
+    "C:\\Users\\embe002\\.nuget\\packages\\microsoft.sourcelink.common\\8.0.0\\microsoft.sourcelink.common.8.0.0.nupkg.sha512",
+    "C:\\Users\\embe002\\.nuget\\packages\\microsoft.sourcelink.github\\8.0.0\\microsoft.sourcelink.github.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }

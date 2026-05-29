@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ETL\\src\\ETL.Core\\ETL.Core.csproj": {}
+    "C:\\CoreSDK\\ETL.Core\\ETL.Core.csproj": {}
   },
   "projects": {
-    "C:\\ETL\\src\\ETL.Core\\ETL.Core.csproj": {
-      "version": "1.0.0",
+    "C:\\CoreSDK\\ETL.Core\\ETL.Core.csproj": {
+      "version": "0.1.0-local",
       "restore": {
-        "projectUniqueName": "C:\\ETL\\src\\ETL.Core\\ETL.Core.csproj",
-        "projectName": "ETL.Core",
-        "projectPath": "C:\\ETL\\src\\ETL.Core\\ETL.Core.csproj",
+        "projectUniqueName": "C:\\CoreSDK\\ETL.Core\\ETL.Core.csproj",
+        "projectName": "Kalmar.ETL.Core",
+        "projectPath": "C:\\CoreSDK\\ETL.Core\\ETL.Core.csproj",
         "packagesPath": "C:\\Users\\embe002\\.nuget\\packages\\",
-        "outputPath": "C:\\ETL\\src\\ETL.Core\\obj\\",
+        "outputPath": "C:\\CoreSDK\\ETL.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\embe002\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -48,6 +48,11 @@
             "Microsoft.Extensions.Logging.Abstractions": {
               "target": "Package",
               "version": "[10.0.7, )"
+            },
+            "Microsoft.SourceLink.GitHub": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.*, )"
             }
           },
           "imports": [
